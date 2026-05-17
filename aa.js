@@ -1,7 +1,7 @@
-const proxy = "https://corsproxy.io/?";
+const proxy = "https://api.allorigins.win/raw?url=";
 const url = "https://www.jma.go.jp/bosai/ltpgm/data/list.json";
 
-fetch(proxy + url)
+fetch(proxy + encodeURIComponent(url))
   .then(res => res.json())
   .then(data => {
     const viewer = document.getElementById("json-viewer");
