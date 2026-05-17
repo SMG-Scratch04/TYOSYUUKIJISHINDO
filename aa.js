@@ -5,17 +5,7 @@ fetch(proxy + url)
   .then(res => res.json())
   .then(data => {
 
-    // ★ ここで /html/body/div を JSON に追加する
-    data.html = {
-      body: {
-        div: {
-          message: "ここに好きな内容を入れられる",
-          timestamp: new Date().toISOString()
-        }
-      }
-    };
-
-    // JSON ビューアに表示
+    // <pre> の中身を JSON ビューアに置き換える
     const viewer = document.getElementById("json-viewer");
     viewer.innerHTML = syntaxHighlight(JSON.stringify(data, null, 2));
   })
