@@ -2,19 +2,32 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>気象庁 JSON 表示</title>
+<title>気象庁 JSON Viewer</title>
+
 <style>
-  body { font-family: monospace; padding: 20px; }
-  pre { background: #f0f0f0; padding: 10px; white-space: pre-wrap; }
-  .item { padding: 8px; border-bottom: 1px solid #ccc; }
-  .name { font-weight: bold; font-size: 1.1em; }
-  .code { color: #555; }
+  body { font-family: sans-serif; padding: 20px; }
+  h2 { margin-top: 40px; }
+
+  /* JSON ビューア用 */
+  pre {
+    background: #1e1e1e;
+    color: #dcdcdc;
+    padding: 15px;
+    border-radius: 8px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+  }
+  .string  { color: #ce9178; }
+  .number  { color: #b5cea8; }
+  .boolean { color: #569cd6; }
+  .null    { color: #569cd6; }
+  .key     { color: #9cdcfe; }
 </style>
 </head>
 <body>
 
-<h2>生の JSON データ</h2>
-<pre id="raw">読み込み中…</pre>
+<h2>JSON Viewer（生データ）</h2>
+<pre id="json-viewer">読み込み中…</pre>
 
 <h2>整形した表示</h2>
 <div id="output">読み込み中…</div>
