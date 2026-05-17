@@ -4,8 +4,6 @@ const url = "https://www.jma.go.jp/bosai/ltpgm/data/list.json";
 fetch(proxy + url)
   .then(res => res.json())
   .then(data => {
-
-    // <pre> の中身を JSON ビューアに置き換える
     const viewer = document.getElementById("json-viewer");
     viewer.innerHTML = syntaxHighlight(JSON.stringify(data, null, 2));
   })
@@ -14,8 +12,6 @@ fetch(proxy + url)
     document.getElementById("json-viewer").textContent = "読み込みエラー";
   });
 
-
-// JSON を色付けする関数
 function syntaxHighlight(json) {
   json = json.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   return json.replace(
