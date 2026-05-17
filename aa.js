@@ -5,10 +5,13 @@ fetch(proxy + url)
   .then(res => res.json())
   .then(data => {
 
-    // JSON に /html/body/div を追加
+    // ★ ここで /html/body/div を JSON に追加する
     data.html = {
       body: {
-        div: "ここに追加したい内容を書く"
+        div: {
+          message: "ここに好きな内容を入れられる",
+          timestamp: new Date().toISOString()
+        }
       }
     };
 
