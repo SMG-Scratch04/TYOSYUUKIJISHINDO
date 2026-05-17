@@ -5,24 +5,40 @@ fetch(proxy + url)
   .then(res => res.json())
   .then(data => {
 
-    // 生 JSON を表示
-    document.getElementById("raw").textContent = JSON.stringify(data, null, 2);
+    // JSON に /html/body/div を追加
+    data.html = {
+      body: {
+        div: "ここに追加したい内容を書く"
+      }
+    };
 
-    // 整形表示
-    const out = document.getElementById("output");
-    out.innerHTML = "";
-
-    data.forEach(item => {
-      out.innerHTML += `
-        <div class="item">
-          <div class="name">${item.name}</div>
-          <div class="code">コード: ${item.code}</div>
-        </div>
-      `;
-    });
+    // JSON ビューアに表示
+    const viewer = document.getElementById("json-viewer");
+    viewer.innerHTML = syntaxHighlight(JSON.stringify(data, null, 2));
   })
   .catch(err => {
     console.error(err);
-    document.getElementById("raw").textContent = "読み込みエラー";
-    document.getElementById("output").textContent = "読み込みエラー";
+    document.getElementById("json-viewer").textContent = "読み込みエラー";
   });
+
+
+// JSON を色付けする関数
+function syntaxHighlight(json) {
+  json = json.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return json.replace(
+    /("(\\u[a-zA-Z0-9]{4}|\
+
+\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+    function (match) {
+      let cls = "number";
+      if (/^"/.test(match)) {
+        cls = /:$/.test(match) ? "key" : "string";
+      } else if (/true|false/.test(match)) {
+        cls = "boolean";
+      } else if (/null/.test(match)) {
+        cls = "null";
+      }
+      return '<span class="' + cls + '">' + match + "</span>";
+    }
+  );
+}
